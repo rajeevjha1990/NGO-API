@@ -1,0 +1,162 @@
+/* -------------------- General Body -------------------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    box-sizing: border-box;
+}
+
+/* -------------------- Header -------------------- */
+.header {
+    background: #222;
+    color: #fff;
+    padding: 0px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* -------------------- Main Container -------------------- */
+.main-container {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 60px;
+    /* height of header */
+}
+
+/* -------------------- Sidebar -------------------- */
+.sidebar {
+    width: 250px;
+    background: #333;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #f1f1f1;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #444;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sidebar ul li a:hover {
+    background: #444;
+}
+
+.content form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+/* Submenu */
+.submenu {
+    display: none;
+    background: #222;
+}
+
+.submenu li a {
+    padding: 10px 40px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.submenu li a:hover {
+    background: #555;
+}
+
+/* -------------------- Content -------------------- */
+.content {
+    flex: 1;
+    margin-left: 250px;
+    /* sidebar width */
+    padding: 20px;
+    background: #f9f9f9;
+    min-height: calc(100vh - 60px);
+    /* adjust for header */
+}
+
+/* -------------------- Footer -------------------- */
+.footer {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    clear: both;
+}
+
+/* -------------------- Form Styling -------------------- */
+.content form {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    max-width: 950px;
+    margin: 0 auto;
+    /* center horizontally */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content form input,
+.content form button,
+.content form textarea,
+.content form select {
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+
+.content form button {
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.content form button:hover {
+    background: #444;
+}
+
+/* -------------------- Headings inside content -------------------- */
+.content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* -------------------- Responsive -------------------- */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .content {
+        margin-left: 200px;
+    }
+}
