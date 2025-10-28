@@ -21,5 +21,24 @@ class Common extends BaseAuthController
         $response['qualifications']=$m_qualification->get_qualification();
         return json_encode($response);
       }
+    public function getPrograms()
+      {
+        $m_program = new \App\Models\M_program();
+        $response['programs']=$m_program->get_programs();
+        return json_encode($response);
+      }
+  // public function new_group()
+  //     {
+  //         $groupData=array(
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //           ''=>$this->request->getVar('');
+  //         );
+  //     }
     }
 ?>

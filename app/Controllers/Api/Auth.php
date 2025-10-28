@@ -22,9 +22,9 @@ class Auth extends BaseAuthController
     public function volunteer_register()
     {
         $this->validation->setRules([
-            'volunteer_name' => 'required',
+            'volntr_name' => 'required',
             'volntr_mobile'     => 'required|numeric|min_length[10]|is_unique[volunteer.volntr_mobile]',
-            'password'      => 'required|min_length[6]'
+            'volntr_password'      => 'required|min_length[6]'
         ]);
 
         if (!$this->validation->withRequest($this->request)->run()) {
@@ -33,13 +33,12 @@ class Auth extends BaseAuthController
                 'err' => $this->validation->getErrors()
             ]);
         }
-
         $volunteerModel = new \App\Models\M_volunteer();
-
         $insertData = [
-            'volunteer_name' => $this->request->getVar('volunteer_name'),
+            'volntr_name' => $this->request->getVar('volntr_name'),
             'volntr_mobile'     => $this->request->getVar('volntr_mobile'),
-            'volntr_password'      => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'volntr_email'     => $this->request->getVar('volntr_email'),
+            'volntr_password'      => password_hash($this->request->getVar('volntr_password'), PASSWORD_DEFAULT),
         ];
         $insert = $volunteerModel->insert($insertData);
         if ($insert) {
@@ -85,20 +84,23 @@ public function login()
     $mobile = $this->request->getVar('mobile');
     $password = $this->request->getVar('password');
     $m_volunteer = new \App\Models\M_volunteer();
-    $volunteer = $m_volunteer->where('volntr_mobile', $mobile)->first();
+    $volunteer = $m_volunteer->getPassword($mobile);
+
     if (!$volunteer) {
         return $this->response->setStatusCode(404)->setJSON([
             'status' => false,
             'msg' => 'Mobile number not registered.'
         ]);
     }
-    if (password_verify($password, $volunteer['volntr_password'])) {
-       $auth = json_encode(["id" => $volunteer['volntr_id']]);
+    $stored_hash = trim($volunteer->volntr_password);
+    if (password_verify($password, $stored_hash)) {
+       $auth = json_encode(["id" => $volunteer->volntr_id]);
             $authkey = $this->encrypter->encrypt($auth);
             $response = [
                 "authkey" => bin2hex($authkey),
-                "volntrid" => $volunteer['volntr_id'],
+                "volntrid" => $volunteer->volntr_id,
                 "message" => "You are sucessfuly logedin",
+                'status' => true,
             ];
             return json_encode($response);
     }
@@ -156,16 +158,24 @@ public function login()
             'msg' => 'Password reset successful.'
         ]);
     }
+public function get_profile()
+  {
+    $vlntrId=$this->volunteerData->volntr_id;
+    $volunteerModel = new \App\Models\M_volunteer();
+    $resp_data["profile"] = $volunteerModel->get_volunteer($vlntrId);
+    return json_encode($resp_data);
+  }
   public function update_profile()
     {
       $profiledata=array(
-          'volntr_name'=>$this->request->getVar('volunteer_name'),
+          'volntr_name'=>$this->request->getVar('volntr_name'),
           'volntr_mobile'=>$this->request->getVar('volntr_mobile'),
           'volntr_email'=>$this->request->getVar('volntr_email'),
           'volntr_ep_temp'=>$this->request->getVar('volntr_ep_temp'),
           'volntr_qualification'=>$this->request->getVar('volntr_qualification'),
           'volntr_join_date'=>$this->request->getVar('volntr_join_date'),
           'volntr_address'=>$this->request->getVar('volntr_address'),
+          'volntr_pincode'=>$this->request->getVar('volntr_pincode'),
       );
       $volunteerModel = new \App\Models\M_volunteer();
       $vlntrId=$this->volunteerData->volntr_id;
@@ -182,5 +192,6 @@ public function login()
           ]);
       }
     }
+
 }
 ?>

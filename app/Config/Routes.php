@@ -19,7 +19,9 @@ $routes->group('api/auth', function($routes) {
     $routes->match(['post','options'], 'get_volunteer', 'Api\Auth::get_volunteer');
     $routes->match(['post','options'], 'logout', 'Api\Auth::logout');
     $routes->match(['post','options'], 'update_profile', 'Api\Auth::update_profile');
+    $routes->match(['post','options'], 'get_profile', 'Api\Auth::get_profile');
 });
 $routes->group('api/common', function($routes) {
     $routes->match(['post','options'], 'qualifications', 'Api\Common::qualifications');
+    $routes->match(['post','options'], 'getPrograms', 'Api\Common::getPrograms');
 });

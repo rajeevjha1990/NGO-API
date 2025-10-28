@@ -15,6 +15,7 @@ class M_volunteer extends Model
         'volntr_qualification',
         'volntr_mobile',
         'volntr_email',
+        'volntr_pincode',
         'volntr_address',
         'volntr_password',
         'volntr_join_date',
