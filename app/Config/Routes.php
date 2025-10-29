@@ -24,4 +24,8 @@ $routes->group('api/auth', function($routes) {
 $routes->group('api/common', function($routes) {
     $routes->match(['post','options'], 'qualifications', 'Api\Common::qualifications');
     $routes->match(['post','options'], 'getPrograms', 'Api\Common::getPrograms');
+    $routes->match(['post','options'], 'new_group', 'Api\Common::new_group');
+    $routes->match(['post','options'], 'epGropus', 'Api\Common::epGropus');
+    $routes->match(['post','options'], 'getMembers', 'Api\Common::getMembers');
+
 });
