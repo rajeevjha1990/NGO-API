@@ -50,9 +50,15 @@ abstract class BaseController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-        $this->encrypter = \Config\Services::encrypter();
+
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');
+            $response->setHeader('Access-Control-Allow-Origin', '*')
+             ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+             ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+             ->setStatusCode(200);
+
     }
 }
+?>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Management</title>
+    <title>सबका विकास जयति</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/dataTables.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/style.css">
@@ -15,7 +15,8 @@
 
     <style>
         .header {
-            background: #222;
+              background: linear-gradient(90deg, #2E7D32, #1B5E20);
+
             color: #fff;
             padding: 10px 20px;
             display: flex;
@@ -68,23 +69,23 @@
 
 <body>
     <header class="header">
-    <h1>Medicine Management</h1>
-    <div class="user-section">
-        <a href="index.php?action=notifications" class="notification-bell" style="color:#fff; position:relative; font-size:20px;">
-            <i class="fas fa-bell"></i>
-            <?php if (!empty($notifCount) && $notifCount > 0) { ?>
-                <span class="notification-count" id="notifCount"><?php echo $notifCount; ?></span>
-            <?php } else { ?>
-                <span class="notification-count" id="notifCount" style="display:none;">0</span>
-            <?php } ?>
-        </a>
-        <span><?php echo $admin_name ?? 'Guest'; ?></span>
-        <a href="<?php echo base_url() ?>/auth/logout" class="logout-btn">
-            Logout
-            <i class="float-right fas sign-out-alt"></i>
-          </a>
-    </div>
+  <h1>सबका विकास जयति</h1>
+  <div class="user-section">
+    <a href="<?= base_url(); ?>notifications" class="notification-bell" style="color:#fff; position:relative; font-size:20px;">
+      <i class="fas fa-bell"></i>
+      <?php if (!empty($notifCount) && $notifCount > 0) { ?>
+        <span class="notification-count" id="notifCount"><?= $notifCount; ?></span>
+      <?php } else { ?>
+        <span class="notification-count" id="notifCount" style="display:none;">0</span>
+      <?php } ?>
+    </a>
+    <span><?= $admin_name ?? 'Guest'; ?></span>
+    <a href="<?= base_url(); ?>/auth/logout" class="logout-btn">
+      Logout
+    </a>
+  </div>
 </header>
+
 <div class="main-container">
 <script>
 document.querySelector('.logout-btn').addEventListener('click', function(e){

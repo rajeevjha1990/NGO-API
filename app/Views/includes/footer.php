@@ -1,6 +1,6 @@
 </div> <!-- end main-container -->
 <footer class="footer">
-    <p>&copy; <?= date("Y") ?> MyMedicine</p>
+    <p>&copy; <?= date("Y") ?> सबका विकास जयति</p>
 </footer>
 
 <script src="<?php echo base_url(); ?>/assets/js/jquery-3.6.0.min.js"></script>

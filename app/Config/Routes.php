@@ -4,8 +4,10 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
-
+$routes->get('/', 'Admin_auth::login');
+$routes->post('/auth/dologin', 'Admin_auth::dologin');
+$routes->get('/auth/logout', 'Admin_auth::logout');
+$routes->get('dashboard', 'Dashboard::index');
 //Auth APIs (login, get user)
 // $routes->group('api', ['filter' => 'auth'], function($routes) {
 //     $routes->post('consumer/get-profile', 'Consumer::getProfile');

@@ -1,14 +1,14 @@
 /* -------------------- General Body -------------------- */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #f7faf8;
     box-sizing: border-box;
 }
 
 /* -------------------- Header -------------------- */
 .header {
-    background: #222;
+    background: #0c4b33; /* NGO green */
     color: #fff;
     padding: 0px;
     text-align: center;
@@ -17,34 +17,43 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 /* -------------------- Main Container -------------------- */
 .main-container {
     display: flex;
     min-height: 100vh;
-    padding-top: 60px;
-    /* height of header */
+    padding-top: 60px; /* header height */
 }
 
 /* -------------------- Sidebar -------------------- */
 .sidebar {
     width: 250px;
-    background: #333;
-    color: #fff;
+    background: #eaf4ef; /* light NGO background */
+    color: #0c4b33;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     overflow-y: auto;
     padding-top: 20px;
+    border-right: 1px solid #cfe3da;
 }
 
 .sidebar h2 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 18px;
-    color: #f1f1f1;
+    color: #0c4b33;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
 .sidebar ul {
@@ -53,73 +62,69 @@ body {
 }
 
 .sidebar ul li {
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #dbece3;
 }
 
 .sidebar ul li a {
     display: block;
     padding: 12px 20px;
-    color: #fff;
+    color: #0c4b33;
     text-decoration: none;
-    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
 }
 
 .sidebar ul li a:hover {
-    background: #444;
-}
-
-.content form select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    box-sizing: border-box;
+    background: #d9f2e1;
+    border-left: 3px solid #0c4b33;
+    color: #064420;
 }
 
 /* Submenu */
 .submenu {
     display: none;
-    background: #222;
+    background: #f1f8f5;
 }
 
 .submenu li a {
     padding: 10px 40px;
     font-size: 14px;
-    color: #ddd;
+    color: #0c4b33;
 }
 
 .submenu li a:hover {
-    background: #555;
+    background: #d9f2e1;
 }
 
 /* -------------------- Content -------------------- */
 .content {
     flex: 1;
-    margin-left: 250px;
-    /* sidebar width */
+    margin-left: 250px; /* sidebar width */
     padding: 20px;
     background: #f9f9f9;
-    min-height: calc(100vh - 60px);
-    /* adjust for header */
+    min-height: calc(100vh - 60px); /* adjust for header */
 }
 
 /* -------------------- Footer -------------------- */
 .footer {
-    background: #222;
+    background: #0c4b33;
     color: #fff;
     text-align: center;
     padding: 10px;
     clear: both;
+    font-size: 14px;
 }
 
 /* -------------------- Form Styling -------------------- */
 .content form {
     background: white;
     padding: 20px;
-    border-radius: 6px;
+    border-radius: 8px;
     max-width: 950px;
     margin: 0 auto;
-    /* center horizontally */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border: 1px solid #e5efe9;
 }
 
 .content form input,
@@ -129,25 +134,47 @@ body {
     padding: 10px;
     margin-top: 10px;
     box-sizing: border-box;
+    border: 1px solid #cfdcd5;
+    border-radius: 5px;
+    font-size: 15px;
 }
 
+.content form input:focus,
+.content form textarea:focus,
+.content form select:focus {
+    outline: none;
+    border-color: #0c4b33;
+    box-shadow: 0 0 5px rgba(12, 75, 51, 0.3);
+}
 
 .content form button {
-    background: #333;
+    background: #0c4b33;
     color: #fff;
     border: none;
     cursor: pointer;
-    transition: background 0.3s;
+    border-radius: 5px;
+    transition: background 0.3s ease;
 }
 
 .content form button:hover {
-    background: #444;
+    background: #107d52;
 }
 
 /* -------------------- Headings inside content -------------------- */
 .content h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #0c4b33;
+    font-weight: 600;
+}
+
+/* -------------------- DataTable adjustments (if used) -------------------- */
+.dataTables_wrapper {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e5efe9;
 }
 
 /* -------------------- Responsive -------------------- */
@@ -155,7 +182,6 @@ body {
     .sidebar {
         width: 200px;
     }
-
     .content {
         margin-left: 200px;
     }
