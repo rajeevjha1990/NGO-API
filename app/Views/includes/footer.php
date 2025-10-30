@@ -158,6 +158,26 @@ $(document).on('click', '.confirm_delete', function(e) {
         }
     });
 });
+// ========== Permission Granted Logic ==========
+$(document).on('click', '.approve_request', function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var link = $this.attr('href');
+
+    apiRequest($this, link, '', 'GET', function(response) {
+        if (response.success) {
+            $.notify(response.message, "success");
+
+            if (response.reload) {
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
+        } else {
+            $.notify(response.message || "Action failed", "error");
+        }
+    });
+});
 
 // Step 3 — Remove Row Function
 function removeRow(deletedrow) {

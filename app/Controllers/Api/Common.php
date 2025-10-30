@@ -36,6 +36,7 @@ public function epGropus()
   }
 public function new_group()
 {
+    $groupId = $this->request->getVar('group_id');
     $groupData = [
         'group_volunteer'     =>$this->volunteerData->volntr_id,
         'group_program'     => $this->request->getVar('program_id'),
@@ -43,19 +44,39 @@ public function new_group()
         'group_epno'        => $this->request->getVar('ep_no'),
         'group_senior_epno' => $this->request->getVar('senior_ep_no'),
         'group_noof_member' => $this->request->getVar('no_of_members'),
+        'group_start_date' => $this->request->getVar('group_start_date'),
     ];
-
     $groupmembers = $this->request->getVar('members');
     if (is_string($groupmembers)) {
         $groupmembers = json_decode($groupmembers, true);
     }
-
     $m_group = new \App\Models\M_group();
+    $m_group_member = new \App\Models\M_group_member();
+    if (!empty($groupId)) {
+        $m_group->update_group($groupId, $groupData);
+        $m_group_member->where('groupid', $groupId)->delete();
+
+      if (!empty($groupmembers)) {
+            $batchData = [];
+            foreach ($groupmembers as $member) {
+                $batchData[] = [
+                    'groupid' => $groupId,
+                    'epno'    => $this->request->getVar('ep_no'),
+                    'name'    => $member['name'],
+                    'mobile'  => $member['mobile']
+                ];
+            }
+            $m_group_member->insertBatch($batchData);
+        }
+        return $this->response->setJSON([
+            'status' => true,
+            'msg'    => 'Group updated successfully.'
+        ]);
+    }
     $insert = $m_group->insertGroup($groupData);
     $group_id = $m_group->insertID();
 
     if ($insert && $group_id && !empty($groupmembers)) {
-        $m_group_member = new \App\Models\M_group_member();
         $mobiles = array_column($groupmembers, 'mobile');
 
         $existingMobiles = $m_group_member->checkduplicateMobile($mobiles);
@@ -117,7 +138,7 @@ public function request_edit_group()
       'group_id'=>$this->request->getVar('groupId'),
       'reason'=>$this->request->getVar('reason')
     );
-  
+
     $m_request= new \App\Models\M_request();
     $result =$m_request->request_insert($requestdata);
     if($result){
@@ -126,6 +147,21 @@ public function request_edit_group()
           'msg' => 'Your request to edit the group has been successfully submitted.'
       ]);
     }
+  }
+public function getAllEditRequests()
+  {
+    $m_request= new \App\Models\M_request();
+    $response['allrequests']=$m_request->get_all_edit_request();
+    return json_encode($response);
+  }
+public function get_groupdata()
+  {
+    $groupId=$this->request->getVar('groupId');
+    $m_group= new \App\Models\M_group();
+    $m_group_member= new \App\Models\M_group_member();
+    $response['groupdata']=$m_group->get_groupdata($groupId);
+    $response['members']=$m_group_member->get_group_members($groupId);
+    return json_encode($response);
   }
 }
 ?>

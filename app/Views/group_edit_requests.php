@@ -70,37 +70,30 @@
 </head>
 <body>
 <div class="content">
-    <h2>Stock List</h2>
-    <div style="text-align:right;">
-    <a href="<?php echo base_url();?>/medicine/medicine_sale" class="new-btn btn-sale">- Sale Medicine</a>
-    <a href="<?php echo base_url();?>/medicine/purchase_form" class="new-btn btn-purchase">+ New Purchase</a>
-</div>
+    <h2>Group Edit Requests</h2>
     <table id="myTable" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>Medicine Name</th>
-                <th>Current Stock</th>
-                <th>View History</th>
+                <th>Volunteer</th>
+                <th>Groups</th>
+                <th>Reason</th>
+                <th>Permission</th>
             </tr>
         </thead>
         <tbody>
-        <?php if (!empty($stocks)) {
-            foreach ($stocks as $stock) { ?>
+        <?php
+            foreach ($groupeditrequests as $request) { ?>
                 <tr>
-                    <td><?php echo $stock->name; ?></td>
-                    <td><?php echo $stock->currentStock; ?></td>
+                    <td><?php echo $request->volntr_name.$request->volntr_ep_temp; ?></td>
+                    <td><?php echo $request->group_name; ?></td>
+                    <td><?php echo $request->reason; ?></td>
                     <td>
-                      <a href="<?php echo base_url(); ?>/medicine/get_stock_history/<?php echo $stock->medicine_id;?>">
-                      view
+                      <a class="btn btn-success approve_request" href="<?php echo base_url(); ?>/adminauth/permission_granted/<?php echo $request->id;?>/<?php echo $request->group_id; ?>">
+                       Permission
                     </a>
                     </td>
                 </tr>
-            <?php }
-        } else { ?>
-            <tr>
-                <td colspan="2" style="text-align:center;">No stock available</td>
-            </tr>
-        <?php } ?>
+                <?php } ?>
         </tbody>
     </table>
 </div>

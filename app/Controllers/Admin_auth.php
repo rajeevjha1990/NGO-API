@@ -44,10 +44,38 @@ public function logout()
 {
     $session = session();
     $session->destroy();
-
     return redirect()->to(base_url('/'))
                      ->with('message', 'You have been logged out successfully.');
 }
-
+public function group_edit_requests()
+  {
+    $m_group_edit_request = new \App\Models\M_request();
+      if (!session()->get('logged_in')) {
+          return redirect()->to('/');
+      }
+    $admindata['admin_name'] = $this->session->get('admin_name');
+    $reqdata['groupeditrequests']=$m_group_edit_request->get_edit_requests();
+      echo view('includes/header',$admindata);
+      echo view('includes/sidebar');
+      echo view('group_edit_requests',$reqdata);
+      echo view('includes/footer');
+   }
+  public function permission_granted($Id,$groupId)
+    {
+    $m_request = new \App\Models\M_request();
+    $m_group = new \App\Models\M_group();
+    $response = [];
+    $result=$m_request->update_request($Id,$groupId);
+  
+    if ($result){
+        $m_group->permission_granted($groupId);
+        $response['success'] = true;
+        $response['message']= "permission granted for group edit.";
+        $response['reload']  = 1;
+    }
+    return $this->response
+          ->setHeader('Content-Type', 'application/json')
+          ->setBody(json_encode($response));
+    }
 }
 ?>

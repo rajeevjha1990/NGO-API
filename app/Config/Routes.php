@@ -7,12 +7,10 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Admin_auth::login');
 $routes->post('/auth/dologin', 'Admin_auth::dologin');
 $routes->get('/auth/logout', 'Admin_auth::logout');
+$routes->get('/auth/group_edit_requests', 'Admin_auth::group_edit_requests');
+$routes->get('/adminauth/permission_granted/(:num)/(:num)', 'Admin_auth::permission_granted/$1/$2');
 $routes->get('dashboard', 'Dashboard::index');
-//Auth APIs (login, get user)
-// $routes->group('api', ['filter' => 'auth'], function($routes) {
-//     $routes->post('consumer/get-profile', 'Consumer::getProfile');
-//     // Add all protected routes here
-// });
+
 
 $routes->group('api/auth', function($routes) {
     $routes->match(['post','options'], 'login', 'Api\Auth::login');
@@ -31,5 +29,7 @@ $routes->group('api/common', function($routes) {
     $routes->match(['post','options'], 'getMembers', 'Api\Common::getMembers');
     $routes->match(['post','options'], 'update_role', 'Api\Common::update_role');
     $routes->match(['post','options'], 'request_edit_group', 'Api\Common::request_edit_group');
+    $routes->match(['post','options'], 'getAllEditRequests', 'Api\Common::getAllEditRequests');
+    $routes->match(['post','options'], 'get_groupdata', 'Api\Common::get_groupdata');
 
 });
