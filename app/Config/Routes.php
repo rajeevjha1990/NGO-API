@@ -27,5 +27,7 @@ $routes->group('api/common', function($routes) {
     $routes->match(['post','options'], 'new_group', 'Api\Common::new_group');
     $routes->match(['post','options'], 'epGropus', 'Api\Common::epGropus');
     $routes->match(['post','options'], 'getMembers', 'Api\Common::getMembers');
+    $routes->match(['post','options'], 'update_role', 'Api\Common::update_role');
+    $routes->match(['post','options'], 'request_edit_group', 'Api\Common::request_edit_group');
 
 });

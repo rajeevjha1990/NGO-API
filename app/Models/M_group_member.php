@@ -14,6 +14,7 @@ class M_group_member extends Model
         'name',
         'mobile',
         'epno',
+        'role',
         'staus',
         'created',
     ];
@@ -34,5 +35,11 @@ public function checkduplicateMobile($mobiles)
       $this->where('groupid',$groupId);
       return $this->get()->getResult();
     }
+  public function update_role($memberId,$role)
+  {
+    $this->where('id',$memberId);
+    $this->set('role',$role);
+    return $this->update();
+  }
 }
 ?>

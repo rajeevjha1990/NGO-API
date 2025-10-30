@@ -61,13 +61,11 @@ public function new_group()
         $existingMobiles = $m_group_member->checkduplicateMobile($mobiles);
         if (!empty($existingMobiles)) {
             $existingMobileList = array_column($existingMobiles, 'mobile');
-
             return $this->response->setStatusCode(409)->setJSON([
                 'status' => false,
                 'msg' => 'Duplicate mobile numbers found: ' . implode(', ', $existingMobileList)
             ]);
         }
-
         $batchData = [];
         foreach ($groupmembers as $member) {
             $batchData[] = [
@@ -98,6 +96,36 @@ public function getMembers()
     $m_group_member= new \App\Models\M_group_member();
     $response['groupmembers']=$m_group_member->get_group_members($groupid);
     return json_encode($response);
+  }
+public function update_role()
+  {
+    $memberId=$this->request->getVar('memberId');
+    $role=$this->request->getVar('role');
+    $m_group_member= new \App\Models\M_group_member();
+    $result=$m_group_member->update_role($memberId,$role);
+    if($result){
+      return $this->response->setJSON([
+          'status' => true,
+          'msg'    => 'Member role update.'
+      ]);
+    }
+  }
+public function request_edit_group()
+  {
+    $requestdata=array(
+      'request_id'=>$this->volunteerData->volntr_id,
+      'group_id'=>$this->request->getVar('groupId'),
+      'reason'=>$this->request->getVar('reason')
+    );
+  
+    $m_request= new \App\Models\M_request();
+    $result =$m_request->request_insert($requestdata);
+    if($result){
+      return $this->response->setJSON([
+          'status' => true,
+          'msg' => 'Your request to edit the group has been successfully submitted.'
+      ]);
+    }
   }
 }
 ?>
