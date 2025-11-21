@@ -163,5 +163,53 @@ public function get_groupdata()
     $response['members']=$m_group_member->get_group_members($groupId);
     return json_encode($response);
   }
+public function get_states()
+  {
+  $m_state= new \App\Models\M_state();
+  $response['states']=$m_state->allStates();
+  return json_encode($response);
+  }
+public function state_districts()
+  {
+  $stateId=$this->request->getVar('stateId');
+  $m_district= new \App\Models\M_district();
+  $response['districts']=$m_district->state_districts($stateId);
+  return json_encode($response);
+  }
+
+public function saintri_distribution()
+  {
+    $saintriData= array(
+        'volunteer_id' =>$this->volunteerData->volntr_id,
+        'member_name' =>$this->request->getVar('member_name'),
+        'age' =>$this->request->getVar('age'),
+        'guardian' =>$this->request->getVar('guardian'),
+        'village' =>$this->request->getVar('village'),
+        'post' =>$this->request->getVar('post'),
+        'police_station' =>$this->request->getVar('police_station'),
+        'district' =>$this->request->getVar('district_id'),
+        'state' =>$this->request->getVar('state_id'),
+        'pincode' =>$this->request->getVar('pincode'),
+        'aadhar' =>$this->request->getVar('aadhar'),
+        'mobile' =>$this->request->getVar('mobile'),
+        'membership_amount' =>$this->request->getVar('membership_amount'),
+        'issue_date' =>date('Y-m-d'),
+    );
+    $m_saintri= new \App\Models\M_saintri_distribution();
+    $result =$m_saintri->saintri_insert($saintriData);
+    if($result){
+      return $this->response->setJSON([
+          'status' => true,
+          'msg' => 'Saitri distribution successfully saved.'
+      ]);
+    }
+  }
+public function distributed_saintries()
+  {
+    $vlntrId=$this->volunteerData->volntr_id;
+    $m_saintri= new \App\Models\M_saintri_distribution();
+    $response['distributedsaintries']=$m_saintri->distributed_saintries($vlntrId);
+    return json_encode($response);
+  }
 }
 ?>

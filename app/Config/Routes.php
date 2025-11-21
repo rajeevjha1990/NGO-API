@@ -31,5 +31,9 @@ $routes->group('api/common', function($routes) {
     $routes->match(['post','options'], 'request_edit_group', 'Api\Common::request_edit_group');
     $routes->match(['post','options'], 'getAllEditRequests', 'Api\Common::getAllEditRequests');
     $routes->match(['post','options'], 'get_groupdata', 'Api\Common::get_groupdata');
+    $routes->match(['post','options'], 'get_states', 'Api\Common::get_states');
+    $routes->match(['post','options'], 'state_districts', 'Api\Common::state_districts');
+    $routes->match(['post','options'], 'saintri_distribution', 'Api\Common::saintri_distribution');
+    $routes->match(['post','options'], 'distributed_saintries', 'Api\Common::distributed_saintries');
 
 });

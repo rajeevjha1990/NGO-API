@@ -44,7 +44,7 @@ class Database extends Config
         if ($_SERVER['SERVER_NAME'] !== 'localhost') {
             $this->default['hostname'] = 'localhost';
             $this->default['username'] = 'NGO';
-            $this->default['password'] = 'NGO';
+            $this->default['password'] = '9MdWOn?k@*L8';
             $this->default['database'] = 'NGO';
         }
     }
